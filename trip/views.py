@@ -11,6 +11,6 @@ class HomeView(TemplateView):
 
 
 def trip_list(request):
-    trips = Trip.objects.all()
+    trips = Trip.objects.filter(owner=request.user)
     context = {"trips": trips}
     return render(request, "trip/trip_list.html", context)
