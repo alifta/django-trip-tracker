@@ -1,2 +1,15 @@
 {
+    "beautify.language": {
+        "html": [
+            "django-html"
+        ]
+    },
+    "[django-html]": {
+        "editor.defaultFormatter": "HookyQR.beautify",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+    },
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    }
 }
