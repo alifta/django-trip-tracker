@@ -1,6 +1,7 @@
+from typing import Any
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DetailView
 
 from .models import Trip, Note
 
@@ -28,3 +29,20 @@ class TripCreateView(CreateView):
         # We want owner be equal to logged in user
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+
+class TripDetailView(DetailView):
+    model = Trip
+
+    # Data stored on Trip, but we also have the Notes data
+    # So we can override the following function
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        trip = context["object"]
+        notes = trip.notes.all()
+        context["notes"] = notes
+        return context
+
+
+class NoteDetailView(DetailView):
+    model = Note
